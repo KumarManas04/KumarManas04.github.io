@@ -216,4 +216,4 @@ Most "we need more memory" problems are really "we're holding things we don't ne
 
 ---
 
-*Thanks for reading! If you've solved this differently — object stores, temp files, reactive streams — I'd love to hear how it went.*
+*Thanks for reading. If you've solved this differently — object stores, temp files, reactive streams — I'd like to hear how it went. Find me on [LinkedIn](https://www.linkedin.com/in/kumar-manas-7b755b38/).*
