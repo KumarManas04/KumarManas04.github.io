@@ -116,57 +116,45 @@ body {
 
 .site-footer {
   border-top: 1px solid var(--rule);
-  padding: 28px 0 48px;
-  margin-top: 64px;
-  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  margin-top: 72px;
+  padding: 22px 0 40px;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   font-size: 14px;
   color: var(--muted);
 }
-.site-footer .footer-heading {
-  font-family: "IBM Plex Sans", system-ui, sans-serif;
-  font-size: 15px;
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-name {
   font-weight: 700;
   color: var(--ink);
-  margin: 0 0 10px;
+  text-decoration: none;
 }
-.site-footer ul { list-style: none; padding: 0; margin: 0; }
-.site-footer li { margin: 0; }
-.site-footer p { margin: 0; }
-.site-footer a { color: var(--muted); text-decoration: none; }
-.site-footer a:hover { color: var(--accent); }
+.footer-name:hover { color: var(--accent); }
 
-/* minima floats these three columns; we stack them instead */
-.site-footer .footer-col-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  font-size: 14px;
-  color: var(--muted);
-}
-.site-footer .footer-col {
-  float: none;
-  width: auto;
-  padding: 0;
-  margin: 0;
-}
-.site-footer .footer-col-1 { display: none; }   /* duplicate of the heading */
-.site-footer .footer-col-3 { order: 1; }
-.site-footer .footer-col-2 { order: 2; }
-
-.site-footer .social-media-list a {
+.footer-link {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  line-height: 1;
+  color: var(--muted);
+  text-decoration: none;
 }
-.site-footer .svg-icon {
+.footer-link:hover { color: var(--accent); }
+
+.footer-icon {
   width: 16px;
   height: 16px;
-  fill: var(--muted);
-  padding: 0;
-  vertical-align: middle;
+  flex: 0 0 16px;
+  fill: currentColor;
+  display: block;
 }
-.site-footer .username { font-size: 14px; }
 
 /* ============================================================
    Post
