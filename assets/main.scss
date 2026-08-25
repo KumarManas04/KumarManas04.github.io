@@ -122,12 +122,51 @@ body {
   font-size: 14px;
   color: var(--muted);
 }
-.site-footer .footer-heading { font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+.site-footer .footer-heading {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
 .site-footer ul { list-style: none; padding: 0; margin: 0; }
+.site-footer li { margin: 0; }
+.site-footer p { margin: 0; }
 .site-footer a { color: var(--muted); text-decoration: none; }
 .site-footer a:hover { color: var(--accent); }
-.site-footer .footer-col-wrapper { font-size: 14px; color: var(--muted); }
-.site-footer .svg-icon { fill: var(--muted); }
+
+/* minima floats these three columns; we stack them instead */
+.site-footer .footer-col-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.site-footer .footer-col {
+  float: none;
+  width: auto;
+  padding: 0;
+  margin: 0;
+}
+.site-footer .footer-col-1 { display: none; }   /* duplicate of the heading */
+.site-footer .footer-col-3 { order: 1; }
+.site-footer .footer-col-2 { order: 2; }
+
+.site-footer .social-media-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.site-footer .svg-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--muted);
+  padding: 0;
+  vertical-align: middle;
+}
+.site-footer .username { font-size: 14px; }
 
 /* ============================================================
    Post

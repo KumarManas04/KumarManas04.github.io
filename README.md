@@ -38,3 +38,6 @@ All colours are CSS custom properties defined twice in `assets/main.scss`:
 once in `:root`, once inside `@media (prefers-color-scheme: dark)`.
 Change a colour in those two blocks and it propagates everywhere,
 diagrams included.
+
+The footer overrides minima's floated three-column layout with a stacked
+flex layout; minima's duplicate name column is hidden.
