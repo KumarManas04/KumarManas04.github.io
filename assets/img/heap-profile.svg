@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 336" role="img" aria-label="Heap during one large job. Before, memory climbs with file size until it hits the 2 GB pod limit and the pod is OOM-killed. After, a flat sawtooth well under a 200 MB limit.">
+<style>
+  svg{--ink:#1B1E24;--muted:#68707C;--rule:#CFCCC4;--hot:#B23C28;--cool:#146A68;--fillop:.16}
+  @media (prefers-color-scheme: dark){
+    svg{--ink:#E9ECEF;--muted:#9AA3AF;--rule:#333A44;--hot:#F5917C;--cool:#5FDDD0;--fillop:.22}
+  }
+  text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;fill:var(--muted)}
+  .cap{font-size:13px;font-weight:700;fill:var(--ink)}
+  .sub{font-size:11.5px;fill:var(--muted)}
+  .hotT{font-size:12px;font-weight:700;fill:var(--hot)}
+  .coolT{font-size:12px;font-weight:700;fill:var(--cool)}
+  .axis{stroke:var(--rule);stroke-width:1.3}
+  .limit{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:5 4;opacity:.75}
+  .hotline{stroke:var(--hot);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .hotarea{fill:var(--hot);opacity:var(--fillop)}
+  .coolline{stroke:var(--cool);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .coolarea{fill:var(--cool);opacity:var(--fillop)}
+  .x{stroke:var(--hot);stroke-width:3;stroke-linecap:round}
+</style>
+
+<text x="1" y="13" class="eyebrow">HEAP DURING ONE LARGE JOB</text>
+
+<text x="1" y="44" class="cap">Before</text>
+<text x="56" y="44" class="sub">grows with file size, until it can't</text>
+
+<line x1="1" y1="146" x2="608" y2="146" class="axis"/>
+<line x1="1" y1="72" x2="608" y2="72" class="limit"/>
+<text x="616" y="76" class="sub">2 GB limit</text>
+
+<path d="M1 146 C 96 144, 158 133, 218 114 C 274 96, 306 84, 332 74 L332 146 Z" class="hotarea"/>
+<path d="M1 146 C 96 144, 158 133, 218 114 C 274 96, 306 84, 332 74" class="hotline"/>
+<line x1="324" y1="66" x2="341" y2="83" class="x"/>
+<line x1="341" y1="66" x2="324" y2="83" class="x"/>
+<text x="354" y="68" class="hotT">OOM kill</text>
+<text x="354" y="86" class="sub">pod dies mid-parse — job restarts from row 0</text>
+
+<text x="1" y="212" class="cap">After</text>
+<text x="50" y="212" class="sub">one chunk at a time — memory is a constant we chose</text>
+
+<line x1="1" y1="306" x2="608" y2="306" class="axis"/>
+<line x1="1" y1="240" x2="608" y2="240" class="limit"/>
+<text x="616" y="244" class="sub">200 MB limit</text>
+
+<path d="M1 306 L20 286 L39 306 L58 284 L77 306 L96 288 L115 306 L134 285 L153 306 L172 287 L191 306 L210 284 L229 306 L248 288 L267 306 L286 285 L305 306 L324 287 L343 306 L362 284 L381 306 L400 288 L419 306 L438 286 L457 306 L476 285 L495 306 L514 287 L533 306 L552 284 L571 306 L590 288 L608 306 Z" class="coolarea"/>
+<path d="M1 306 L20 286 L39 306 L58 284 L77 306 L96 288 L115 306 L134 285 L153 306 L172 287 L191 306 L210 284 L229 306 L248 288 L267 306 L286 285 L305 306 L324 287 L343 306 L362 284 L381 306 L400 288 L419 306 L438 286 L457 306 L476 285 L495 306 L514 287 L533 306 L552 284 L571 306 L590 288 L608 306" class="coolline"/>
+
+<text x="1" y="330" class="coolT">flat — and the ceiling came down 10×, not up</text>
+</svg>

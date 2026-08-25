@@ -30,18 +30,7 @@ As the lead on this area, the redesign landed on my desk. This is the story of h
 
 The original pipeline was simple — which is why it was easy to ship and painful to scale:
 
-```
-              THE OLD PIPELINE — everything, all at once
-
-┌────────┐   1 GB     ┌─────────────┐    1 GB     ┌──────────────────┐
-│ Client │ ─────────► │  ONE row,   │ ──────────► │  ONE listener    │
-│ upload │            │  ONE giant  │  ORM loads  │                  │
-└────────┘            │  BLOB       │  ALL of it  │ parse ALL rows   │
-                      └─────────────┘             │ => multi-GB heap │
-                                                  │ => timeouts      │
-                                                  │ => all-or-nothing│
-                                                  └──────────────────┘
-```
+![The old pipeline: one gigabyte lands as a single BLOB, and one listener loads all of it.](/assets/img/pipeline-before.svg)
 
 Four things multiplied against us:
 
@@ -92,23 +81,7 @@ A "file" is now just a UUID plus an ordered set of chunk rows. Two design calls 
 
 This is where the "single listener grinds through the whole job" model got dismantled. When a job runs, the orchestrator publishes **one queue message per chunk**. Each message is self-describing: job ID, chunk sequence, batch size, column headers.
 
-```
-             THE NEW PIPELINE — nothing holds the whole file
-
-┌────────┐  stream,   ┌──────────────┐
-│ Client │ ─────────► │  chunk 0     │   one small row
-│ upload │  line by   │  chunk 1     │   per batch
-└────────┘  line      │  chunk 2     │
-                      │   ...        │
-                      └──────┬───────┘
-                             │   one queue message per chunk
-                ┌────────────┼────────────┐
-                ▼            ▼            ▼
-           ┌─────────┐  ┌─────────┐  ┌─────────┐
-           │ worker  │  │ worker  │  │ worker  │   parallel workers,
-           │ chunk 0 │  │ chunk 1 │  │ chunk 2 │   bounded memory,
-           └─────────┘  └─────────┘  └─────────┘   retry = ONE chunk
-```
+![The new pipeline: the upload is streamed into small chunks, one queue message per chunk, and any worker on any pod can take any chunk.](/assets/img/pipeline-after.svg)
 
 A worker fetches *only its chunk*, streams it row by row into entities (never materializing even one full chunk as objects), processes it, and reports back. Three things fall out of that:
 
@@ -180,12 +153,7 @@ for each chunkId:
 
 The client sees a normal file download. The server's heap sees a ripple instead of a wave:
 
-```
-  heap during one large job
-
-  OLD:  ▁▂▄▆█████████▆   grows with file size (until it can't)
-  NEW:  ▁▂▁▂▁▂▁▂▁▂▁▂▁▂   flat — one chunk at a time
-```
+![Heap during one large job. Before, memory climbs with file size until the pod is OOM-killed. After, a flat sawtooth well under a limit ten times smaller.](/assets/img/heap-profile.svg)
 
 ---
 

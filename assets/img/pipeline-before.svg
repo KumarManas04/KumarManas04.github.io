@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 232" role="img" aria-label="The old pipeline: a one gigabyte upload is stored as a single BLOB and loaded whole by a single listener, which is OOM-killed.">
+<style>
+  svg{--ink:#1B1E24;--muted:#68707C;--rule:#CFCCC4;--hot:#B23C28;--hotfill:#F7EAE6;--hotrule:#DDA492}
+  @media (prefers-color-scheme: dark){
+    svg{--ink:#E9ECEF;--muted:#9AA3AF;--rule:#333A44;--hot:#F5917C;--hotfill:#2C1B18;--hotrule:#7A4034}
+  }
+  text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;fill:var(--muted)}
+  .lbl{font-size:13.5px;font-weight:600;fill:var(--ink)}
+  .sub{font-size:12px;fill:var(--muted)}
+  .flow{font-size:11px;font-weight:600;fill:var(--muted)}
+  .bad{font-size:12px;font-weight:600;fill:var(--hot)}
+  .box{fill:none;stroke:var(--rule);stroke-width:1.5}
+  .boxbad{fill:var(--hotfill);stroke:var(--hotrule);stroke-width:1.5}
+  .ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+  .lnbad{stroke:var(--hot);stroke-width:2;fill:none}
+  .head{fill:var(--muted)}
+  .headbad{fill:var(--hot)}
+</style>
+<defs>
+  <marker id="h1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" class="head"/>
+  </marker>
+  <marker id="h2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" class="headbad"/>
+  </marker>
+</defs>
+
+<text x="1" y="14" class="eyebrow">BEFORE — EVERYTHING, ALL AT ONCE</text>
+
+<rect x="1" y="74" width="116" height="62" rx="10" class="box"/>
+<text x="59" y="100" class="lbl" text-anchor="middle">Client</text>
+<text x="59" y="119" class="sub" text-anchor="middle">uploads 1 GB</text>
+
+<path d="M124 105 H190" class="ln" marker-end="url(#h1)"/>
+<text x="157" y="96" class="flow" text-anchor="middle">1 GB</text>
+
+<rect x="199" y="66" width="152" height="78" rx="10" class="box"/>
+<text x="275" y="94" class="lbl" text-anchor="middle">One row</text>
+<text x="275" y="113" class="sub" text-anchor="middle">one giant BLOB</text>
+<text x="275" y="131" class="sub" text-anchor="middle">in the database</text>
+
+<path d="M358 105 H426" class="lnbad" marker-end="url(#h2)"/>
+<text x="392" y="96" class="bad" text-anchor="middle">ORM loads</text>
+<text x="392" y="124" class="bad" text-anchor="middle">all of it</text>
+
+<rect x="435" y="52" width="284" height="106" rx="10" class="boxbad"/>
+<text x="577" y="80" class="lbl" text-anchor="middle">One listener, one thread</text>
+<text x="577" y="102" class="sub" text-anchor="middle">parses every row into objects</text>
+<text x="577" y="124" class="bad" text-anchor="middle">multi-GB heap · timeouts</text>
+<text x="577" y="144" class="bad" text-anchor="middle">all-or-nothing · no resumption</text>
+
+<path d="M577 158 V186" class="lnbad" marker-end="url(#h2)"/>
+<text x="577" y="210" class="bad" text-anchor="middle">OOM kill — the pod dies, the job restarts from row 0</text>
+</svg>

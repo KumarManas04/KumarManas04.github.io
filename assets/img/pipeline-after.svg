@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-label="The new pipeline: the upload is streamed into small chunks, each chunk becomes one queue message, and any worker on any pod can process any chunk.">
+<style>
+  svg{--ink:#1B1E24;--muted:#68707C;--rule:#CFCCC4;--cool:#146A68;--coolfill:#E4F1F0;--coolrule:#8CC3BF}
+  @media (prefers-color-scheme: dark){
+    svg{--ink:#E9ECEF;--muted:#9AA3AF;--rule:#333A44;--cool:#5FDDD0;--coolfill:#122F2D;--coolrule:#33726C}
+  }
+  text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;fill:var(--muted)}
+  .lbl{font-size:13.5px;font-weight:600;fill:var(--ink)}
+  .sub{font-size:12px;fill:var(--muted)}
+  .chk{font-size:11.5px;fill:var(--ink)}
+  .flow{font-size:11px;font-weight:600;fill:var(--muted)}
+  .good{font-size:12px;font-weight:600;fill:var(--cool)}
+  .box{fill:none;stroke:var(--rule);stroke-width:1.5}
+  .chunk{fill:var(--coolfill);stroke:var(--coolrule);stroke-width:1.4}
+  .worker{fill:none;stroke:var(--coolrule);stroke-width:1.5}
+  .ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+  .lnc{stroke:var(--coolrule);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .head{fill:var(--muted)}
+  .headc{fill:var(--coolrule)}
+</style>
+<defs>
+  <marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" class="head"/>
+  </marker>
+  <marker id="g2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" class="headc"/>
+  </marker>
+</defs>
+
+<text x="1" y="14" class="eyebrow">AFTER — NOTHING HOLDS THE WHOLE FILE</text>
+
+<rect x="1" y="54" width="112" height="60" rx="10" class="box"/>
+<text x="57" y="80" class="lbl" text-anchor="middle">Client</text>
+<text x="57" y="99" class="sub" text-anchor="middle">uploads 1 GB</text>
+
+<path d="M120 84 H182" class="ln" marker-end="url(#g1)"/>
+<text x="151" y="75" class="flow" text-anchor="middle">streamed</text>
+<text x="151" y="102" class="flow" text-anchor="middle">line by line</text>
+
+<rect x="190" y="38" width="156" height="25" rx="6" class="chunk"/>
+<text x="268" y="55" class="chk" text-anchor="middle">chunk 0 · 1,000 rows</text>
+<rect x="190" y="69" width="156" height="25" rx="6" class="chunk"/>
+<text x="268" y="86" class="chk" text-anchor="middle">chunk 1 · 1,000 rows</text>
+<rect x="190" y="100" width="156" height="25" rx="6" class="chunk"/>
+<text x="268" y="117" class="chk" text-anchor="middle">chunk 2 · 1,000 rows</text>
+<text x="268" y="142" class="sub" text-anchor="middle">1,000 small rows — never one big one</text>
+
+<path d="M353 82 H404" class="lnc" marker-end="url(#g2)"/>
+<text x="470" y="70" class="good" text-anchor="middle">one queue message per chunk</text>
+
+<path d="M414 82 V178 M414 178 H660 M470 178 V196 M565 178 V196 M660 178 V196" class="lnc"/>
+<path d="M470 188 V200" class="lnc" marker-end="url(#g2)"/>
+<path d="M565 188 V200" class="lnc" marker-end="url(#g2)"/>
+<path d="M660 188 V200" class="lnc" marker-end="url(#g2)"/>
+
+<rect x="425" y="208" width="90" height="54" rx="10" class="worker"/>
+<text x="470" y="231" class="lbl" text-anchor="middle">worker</text>
+<text x="470" y="249" class="sub" text-anchor="middle">chunk 0</text>
+
+<rect x="520" y="208" width="90" height="54" rx="10" class="worker"/>
+<text x="565" y="231" class="lbl" text-anchor="middle">worker</text>
+<text x="565" y="249" class="sub" text-anchor="middle">chunk 1</text>
+
+<rect x="615" y="208" width="90" height="54" rx="10" class="worker"/>
+<text x="660" y="231" class="lbl" text-anchor="middle">worker</text>
+<text x="660" y="249" class="sub" text-anchor="middle">chunk 2</text>
+
+<text x="565" y="285" class="good" text-anchor="middle">any pod · any chunk · bounded memory · retry = one chunk</text>
+</svg>
