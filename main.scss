@@ -1,0 +1,89 @@
+---
+# This empty front matter block is REQUIRED. Jekyll won't compile the file without it.
+---
+
+// ---- Set before the import so minima picks these up ----
+$base-font-family: Charter, "Iowan Old Style", "Source Serif 4", Georgia, Cambria, "Times New Roman", serif;
+$base-font-size:   20px;
+$base-line-height: 1.7;
+$content-width:    760px;
+$text-color:       #242424;
+$background-color: #ffffff;
+$brand-color:      #1a73e8;
+
+@import "minima";
+
+// ---- Refinements ----
+
+.page-content { padding: 48px 0 96px; }
+
+// Sans-serif headings against serif body — the Medium contrast
+h1, h2, h3, h4 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+}
+h1 { font-size: 2.1em; }
+h2 { font-size: 1.45em; }
+h3 { font-size: 1.15em; }
+
+p  { margin-bottom: 1.2em; }
+li { margin-bottom: 0.4em; }
+
+// The TL;DR block
+blockquote {
+  border-left: 4px solid #e0e0e0;
+  color: #333;
+  font-style: normal;
+  font-size: 0.95em;
+  letter-spacing: 0;
+  padding: 0.2em 0 0.2em 1.2em;
+}
+
+// Code + ASCII diagrams
+pre, code {
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 0.68em;
+  line-height: 1.45;
+}
+pre {
+  background: #f6f8fa;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+}
+code {
+  background: #f2f3f5;
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+}
+pre code { background: none; padding: 0; border: 0; }
+
+// Results table
+table {
+  width: 100%;
+  font-size: 0.82em;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+th, td {
+  border: 1px solid #e6e8eb;
+  padding: 9px 12px;
+  text-align: left;
+}
+th { background: #fafafa; font-weight: 600; }
+
+hr { border: 0; border-top: 1px solid #ececec; margin: 3em 0; }
+
+img { border-radius: 8px; max-width: 100%; }
+
+// Mobile: shrink the monospace further so ASCII diagrams fit
+@media screen and (max-width: 600px) {
+  body { font-size: 18px; }
+  pre, code { font-size: 0.56em; }
+  h1 { font-size: 1.7em; }
+}
