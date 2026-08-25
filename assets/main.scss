@@ -19,6 +19,11 @@
   --code-bg:    #F4F2EC;
   --code-ink:   #33383F;
   --sel:        #CFE8E5;
+  --hotfill:    #F7EAE6;
+  --hotrule:    #DDA492;
+  --coolfill:   #E4F1F0;
+  --coolrule:   #8CC3BF;
+  --dgm-fill:   0.16;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,6 +39,11 @@
     --code-bg:  #14181E;
     --code-ink: #C6CCD4;
     --sel:      #1F4B48;
+    --hotfill:  #2C1B18;
+    --hotrule:  #7A4034;
+    --coolfill: #122F2D;
+    --coolrule: #33726C;
+    --dgm-fill: 0.22;
   }
 }
 
@@ -98,7 +108,11 @@ body {
   text-decoration: none;
 }
 .site-nav .page-link:hover { color: var(--accent); }
-.site-nav .menu-icon { display: none; }
+.site-nav .menu-icon,
+.site-nav .nav-trigger,
+.site-nav label[for="nav-trigger"] { display: none !important; }
+.site-nav .trigger { display: block; }
+.site-nav .page-link:first-child { margin-left: 0; }
 
 .site-footer {
   border-top: 1px solid var(--rule);
@@ -309,4 +323,19 @@ td strong { color: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+
+/* ============================================================
+   Inline diagrams — each SVG carries its own <style>, which reads
+   the tokens above. Only layout belongs here.
+   ============================================================ */
+figure.dgm {
+  margin: 2.2em 0 2.4em;
+  padding: 0;
+}
+figure.dgm svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }

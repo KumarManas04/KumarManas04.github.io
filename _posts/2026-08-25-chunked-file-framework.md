@@ -30,7 +30,7 @@ As the lead on this area, the redesign landed on my desk. This is the story of h
 
 The original pipeline was simple — which is why it was easy to ship and painful to scale:
 
-![The old pipeline: one gigabyte lands as a single BLOB, and one listener loads all of it.](/assets/img/pipeline-before.svg)
+{% include diagram-before.svg %}
 
 Four things multiplied against us:
 
@@ -81,7 +81,7 @@ A "file" is now just a UUID plus an ordered set of chunk rows. Two design calls 
 
 This is where the "single listener grinds through the whole job" model got dismantled. When a job runs, the orchestrator publishes **one queue message per chunk**. Each message is self-describing: job ID, chunk sequence, batch size, column headers.
 
-![The new pipeline: the upload is streamed into small chunks, one queue message per chunk, and any worker on any pod can take any chunk.](/assets/img/pipeline-after.svg)
+{% include diagram-after.svg %}
 
 A worker fetches *only its chunk*, streams it row by row into entities (never materializing even one full chunk as objects), processes it, and reports back. Three things fall out of that:
 
@@ -153,7 +153,7 @@ for each chunkId:
 
 The client sees a normal file download. The server's heap sees a ripple instead of a wave:
 
-![Heap during one large job. Before, memory climbs with file size until the pod is OOM-killed. After, a flat sawtooth well under a limit ten times smaller.](/assets/img/heap-profile.svg)
+{% include diagram-heap.svg %}
 
 ---
 

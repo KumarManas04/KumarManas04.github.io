@@ -1,0 +1,62 @@
+<figure class="dgm">
+<svg class="dgm-svg" viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The old pipeline: a one gigabyte upload is stored as a single BLOB and loaded whole by a single listener, which is OOM-killed.">
+<style>
+  .dgm-svg text{font-family:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .dgm-eyebrow{font-size:12px;font-weight:700;letter-spacing:.09em;fill:var(--muted,#68707C)}
+  .dgm-cap{font-size:14.5px;font-weight:700;fill:var(--ink,#1B1E24)}
+  .dgm-lbl{font-size:14px;font-weight:600;fill:var(--ink,#1B1E24)}
+  .dgm-chk{font-size:12.5px;fill:var(--ink,#1B1E24)}
+  .dgm-sub{font-size:12.5px;fill:var(--muted,#68707C)}
+  .dgm-flow{font-size:11.5px;font-weight:600;fill:var(--muted,#68707C)}
+  .dgm-hot{font-size:12.5px;font-weight:600;fill:var(--hot,#B23C28)}
+  .dgm-cool{font-size:12.5px;font-weight:600;fill:var(--accent,#146A68)}
+  .dgm-box{fill:none;stroke:var(--rule,#CFCCC4);stroke-width:1.5}
+  .dgm-box-hot{fill:var(--hotfill,#F7EAE6);stroke:var(--hotrule,#DDA492);stroke-width:1.5}
+  .dgm-chunk{fill:var(--coolfill,#E4F1F0);stroke:var(--coolrule,#8CC3BF);stroke-width:1.4}
+  .dgm-worker{fill:none;stroke:var(--coolrule,#8CC3BF);stroke-width:1.5}
+  .dgm-ln{stroke:var(--muted,#68707C);stroke-width:1.5;fill:none}
+  .dgm-ln-hot{stroke:var(--hot,#B23C28);stroke-width:2;fill:none}
+  .dgm-ln-cool{stroke:var(--coolrule,#8CC3BF);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .dgm-head{fill:var(--muted,#68707C)}
+  .dgm-head-hot{fill:var(--hot,#B23C28)}
+  .dgm-head-cool{fill:var(--coolrule,#8CC3BF)}
+  .dgm-axis{stroke:var(--rule,#CFCCC4);stroke-width:1.3}
+  .dgm-limit{stroke:var(--muted,#68707C);stroke-width:1.2;stroke-dasharray:5 4;opacity:.7}
+  .dgm-line-hot{stroke:var(--hot,#B23C28);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .dgm-area-hot{fill:var(--hot,#B23C28);opacity:var(--dgm-fill,.16)}
+  .dgm-line-cool{stroke:var(--accent,#146A68);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .dgm-area-cool{fill:var(--accent,#146A68);opacity:var(--dgm-fill,.16)}
+  .dgm-x{stroke:var(--hot,#B23C28);stroke-width:3;stroke-linecap:round}
+</style>
+<defs>
+  <marker id="bH" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dgm-head"/></marker>
+  <marker id="bHh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dgm-head-hot"/></marker>
+  <marker id="bHc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dgm-head-cool"/></marker>
+</defs>
+<text x="2" y="14" class="dgm-eyebrow">BEFORE — EVERYTHING, ALL AT ONCE</text>
+
+<rect x="2" y="72" width="112" height="62" rx="10" class="dgm-box"/>
+<text x="58" y="98" class="dgm-lbl" text-anchor="middle">Client</text>
+<text x="58" y="118" class="dgm-sub" text-anchor="middle">uploads 1 GB</text>
+
+<path d="M120 103 H172" class="dgm-ln" marker-end="url(#bH)"/>
+<text x="146" y="94" class="dgm-flow" text-anchor="middle">1 GB</text>
+
+<rect x="180" y="64" width="140" height="78" rx="10" class="dgm-box"/>
+<text x="250" y="92" class="dgm-lbl" text-anchor="middle">One row</text>
+<text x="250" y="112" class="dgm-sub" text-anchor="middle">one giant BLOB</text>
+<text x="250" y="130" class="dgm-sub" text-anchor="middle">in the database</text>
+
+<path d="M326 103 H382" class="dgm-ln-hot" marker-end="url(#bHh)"/>
+<text x="354" y="92" class="dgm-hot" text-anchor="middle">ORM loads</text>
+<text x="354" y="124" class="dgm-hot" text-anchor="middle">all of it</text>
+
+<rect x="390" y="50" width="248" height="104" rx="10" class="dgm-box-hot"/>
+<text x="514" y="78" class="dgm-lbl" text-anchor="middle">One listener, one thread</text>
+<text x="514" y="99" class="dgm-sub" text-anchor="middle">parses every row into objects</text>
+<text x="514" y="121" class="dgm-hot" text-anchor="middle">multi-GB heap · timeouts</text>
+<text x="514" y="141" class="dgm-hot" text-anchor="middle">all-or-nothing · no resumption</text>
+
+<path d="M514 154 V186" class="dgm-ln-hot" marker-end="url(#bHh)"/>
+<text x="320" y="216" class="dgm-hot" text-anchor="middle">OOM kill — the pod dies, the job restarts from row 0</text>
+</svg></figure>

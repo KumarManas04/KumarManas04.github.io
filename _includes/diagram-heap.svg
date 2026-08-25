@@ -1,0 +1,58 @@
+<figure class="dgm">
+<svg class="dgm-svg" viewBox="0 0 640 306" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Heap during one large job. Before, memory climbs with file size until it hits the 2 GB pod limit and the pod is OOM-killed. After, a flat sawtooth well under a 200 MB limit.">
+<style>
+  .dgm-svg text{font-family:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .dgm-eyebrow{font-size:12px;font-weight:700;letter-spacing:.09em;fill:var(--muted,#68707C)}
+  .dgm-cap{font-size:14.5px;font-weight:700;fill:var(--ink,#1B1E24)}
+  .dgm-lbl{font-size:14px;font-weight:600;fill:var(--ink,#1B1E24)}
+  .dgm-chk{font-size:12.5px;fill:var(--ink,#1B1E24)}
+  .dgm-sub{font-size:12.5px;fill:var(--muted,#68707C)}
+  .dgm-flow{font-size:11.5px;font-weight:600;fill:var(--muted,#68707C)}
+  .dgm-hot{font-size:12.5px;font-weight:600;fill:var(--hot,#B23C28)}
+  .dgm-cool{font-size:12.5px;font-weight:600;fill:var(--accent,#146A68)}
+  .dgm-box{fill:none;stroke:var(--rule,#CFCCC4);stroke-width:1.5}
+  .dgm-box-hot{fill:var(--hotfill,#F7EAE6);stroke:var(--hotrule,#DDA492);stroke-width:1.5}
+  .dgm-chunk{fill:var(--coolfill,#E4F1F0);stroke:var(--coolrule,#8CC3BF);stroke-width:1.4}
+  .dgm-worker{fill:none;stroke:var(--coolrule,#8CC3BF);stroke-width:1.5}
+  .dgm-ln{stroke:var(--muted,#68707C);stroke-width:1.5;fill:none}
+  .dgm-ln-hot{stroke:var(--hot,#B23C28);stroke-width:2;fill:none}
+  .dgm-ln-cool{stroke:var(--coolrule,#8CC3BF);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .dgm-head{fill:var(--muted,#68707C)}
+  .dgm-head-hot{fill:var(--hot,#B23C28)}
+  .dgm-head-cool{fill:var(--coolrule,#8CC3BF)}
+  .dgm-axis{stroke:var(--rule,#CFCCC4);stroke-width:1.3}
+  .dgm-limit{stroke:var(--muted,#68707C);stroke-width:1.2;stroke-dasharray:5 4;opacity:.7}
+  .dgm-line-hot{stroke:var(--hot,#B23C28);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .dgm-area-hot{fill:var(--hot,#B23C28);opacity:var(--dgm-fill,.16)}
+  .dgm-line-cool{stroke:var(--accent,#146A68);stroke-width:2.5;fill:none;stroke-linejoin:round}
+  .dgm-area-cool{fill:var(--accent,#146A68);opacity:var(--dgm-fill,.16)}
+  .dgm-x{stroke:var(--hot,#B23C28);stroke-width:3;stroke-linecap:round}
+</style>
+<text x="2" y="13" class="dgm-eyebrow">HEAP DURING ONE LARGE JOB</text>
+
+<text x="2" y="42" class="dgm-cap">Before</text>
+<text x="62" y="42" class="dgm-sub">grows with file size, until it can’t</text>
+
+<line x1="2" y1="126" x2="466" y2="126" class="dgm-axis"/>
+<line x1="2" y1="62" x2="466" y2="62" class="dgm-limit"/>
+<text x="474" y="66" class="dgm-sub">2 GB limit</text>
+
+<path d="M2 126 C 74 124, 122 116, 168 100 C 214 84, 240 72, 262 63 L262 126 Z" class="dgm-area-hot"/>
+<path d="M2 126 C 74 124, 122 116, 168 100 C 214 84, 240 72, 262 63" class="dgm-line-hot"/>
+<line x1="254" y1="55" x2="270" y2="71" class="dgm-x"/>
+<line x1="270" y1="55" x2="254" y2="71" class="dgm-x"/>
+<text x="282" y="50" class="dgm-hot">OOM kill</text>
+<text x="282" y="88" class="dgm-sub">pod dies mid-parse — restarts from row 0</text>
+
+<text x="2" y="188" class="dgm-cap">After</text>
+<text x="54" y="188" class="dgm-sub">one chunk at a time — memory is a constant we chose</text>
+
+<line x1="2" y1="272" x2="466" y2="272" class="dgm-axis"/>
+<line x1="2" y1="212" x2="466" y2="212" class="dgm-limit"/>
+<text x="474" y="216" class="dgm-sub">200 MB limit</text>
+
+<path d="M0 272 L0 250 L14.8 272 L29.6 250 L44.400000000000006 272 L59.2 250 L74.0 272 L88.8 250 L103.6 272 L118.39999999999999 250 L133.2 272 L148.0 250 L162.8 272 L177.60000000000002 250 L192.40000000000003 272 L207.20000000000005 250 L222.00000000000006 272 L236.80000000000007 250 L251.60000000000008 272 L266.4000000000001 250 L281.2000000000001 272 L296.0000000000001 250 L310.8000000000001 272 L325.60000000000014 250 L340.40000000000015 272 L355.20000000000016 250 L370.00000000000017 272 L384.8000000000002 250 L399.6000000000002 272 L414.4000000000002 250 L429.2000000000002 272 L444.0000000000002 250 L458.80000000000024 272 L460 272 Z" class="dgm-area-cool"/>
+<path d="M0 272 L0 250 L14.8 272 L29.6 250 L44.400000000000006 272 L59.2 250 L74.0 272 L88.8 250 L103.6 272 L118.39999999999999 250 L133.2 272 L148.0 250 L162.8 272 L177.60000000000002 250 L192.40000000000003 272 L207.20000000000005 250 L222.00000000000006 272 L236.80000000000007 250 L251.60000000000008 272 L266.4000000000001 250 L281.2000000000001 272 L296.0000000000001 250 L310.8000000000001 272 L325.60000000000014 250 L340.40000000000015 272 L355.20000000000016 250 L370.00000000000017 272 L384.8000000000002 250 L399.6000000000002 272 L414.4000000000002 250 L429.2000000000002 272 L444.0000000000002 250 L458.80000000000024 272 L460 272" class="dgm-line-cool"/>
+
+<text x="2" y="300" class="dgm-cool">flat — and the ceiling came down 10×, not up</text>
+</svg></figure>
